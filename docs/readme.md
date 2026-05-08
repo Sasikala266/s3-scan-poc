@@ -6,7 +6,7 @@ This project demonstrates a fully serverless AWS solution to dynamically locate 
 Users provide only a file name (for example, `employee_data.csv`).  
 The backend automatically determines where to search and returns the file location if it exists.
 
-The solution is built entirely using managed AWS services and is free-tier friendly.
+The solution is built entirely using managed AWS services.
 
 ---
 
@@ -63,7 +63,7 @@ All infrastructure is deployed using **Terraform**.
 - AWS Lambda with appropriate IAM role
 - CORS-enabled API for browser access
 
-Refer to the `infra/` directory for complete Terraform code.
+Refer to the `terraform/` directory for complete Terraform code.
 
 ---
 
