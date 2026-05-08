@@ -10,7 +10,7 @@ from config import FILE_TYPE_PREFIXES
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
-AWS_REGION = os.environ.get("AWS_REGION", os.environ.get("AWS_DEFAULT_REGION", "us-east-1"))
+AWS_REGION = os.environ.get("REGION", os.environ.get("AWS_DEFAULT_REGION", "us-east-1"))
 S3_BUCKET = os.environ.get("S3_BUCKET_NAME")
 
 s3_client = boto3.client("s3", region_name=AWS_REGION)
