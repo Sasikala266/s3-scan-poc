@@ -167,7 +167,7 @@ resource "aws_lambda_function" "scan" {
   environment {
     variables = {
       S3_BUCKET_NAME = aws_s3_bucket.ui.bucket
-      REGION     = var.region
+      default_region = var.region
     }
   }
 
