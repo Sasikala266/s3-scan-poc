@@ -1,48 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>S3 Scan POC</title>
+  <meta charset="UTF-8">
+  <title>S3 File Search</title>
+
   <style>
-    body { font-family: Arial, sans-serif; margin: 40px; }
-    input { width: 420px; padding: 8px; }
-    button { padding: 8px 16px; margin-top: 10px; }
-    pre { background:#f4f4f4; padding:12px; border:1px solid #ccc; margin-top:20px; }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+    }
+    input {
+      padding: 8px;
+      width: 400px;
+    }
+    button {
+      padding: 8px 16px;
+      margin-top: 10px;
+    }
+    pre {
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #f4f4f4;
+      border: 1px solid #ccc;
+    }
   </style>
 </head>
 <body>
-  <h2>S3 Scan POC (REST API)</h2>
 
-  <label>Enter file name (example: employee_data.csv):</label><br><br>
-  <input id="fileName" type="text" placeholder="employee_data.csv" />
+  <h2>S3 Scan POC</h2>
+
+  <label for="fileName">Enter file name:</label><br><br>
+  <input
+    id="fileName"
+    type="text"
+    placeholder="employee_data.csv"
+  />
+
   <br><br>
 
   <button onclick="startScan()">Start Scan</button>
+
   <pre id="result"></pre>
 
   <script>
     async function startScan() {
-      const fileName = document.getElementById("fileName").value.trim();
-      const result = document.getElementById("result");
-      if (!fileName) { result.innerText = "Please enter a file name."; return; }
+      const fileName = document.getElementById("fileName").value;
+      const resultBox = document.getElementById("result");
 
-      result.innerText = "Calling scan API...";
+      if (!fileName) {
+        resultBox.innerText = "Please enter a file name.";
+        return;
+      }
+
+      resultBox.innerText = "Triggering scan...";
 
       try {
-        // ✅ REST API format: ...amazonaws.com/prod/scan
-        const url = window.__SCAN_API_URL__ || "REPLACE_ME_AFTER_TERRAFORM";
-        const response = await fetch(url, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ file_name: fileName })
-        });
+        const response = await fetch(
+          "https://l0xh2dduk7.execute-api.us-east-1.amazonaws.com/prod/scan",
+          arn:aws:execute-api:us-east-1:820588696493:l0xh2dduk7/*/POST/scan
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              file_name: fileName
+            })
+          }
+        );
 
         const text = await response.text();
-        result.innerText = text;
-      } catch (err) {
-        result.innerText = "Error calling API: " + err;
+        resultBox.innerText = text;
+
+      } catch (error) {
+        resultBox.innerText = "Error calling API: " + error;
       }
     }
   </script>
+
 </body>
 </html>
