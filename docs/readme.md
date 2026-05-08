@@ -11,12 +11,15 @@ The solution is built entirely using managed AWS services and is free-tier frien
 ---
 
 ## Architecture
-![Architecture Diagram](docs/screenshots/architecture-diagram.png)
+[<img src="docs/screenshots/architecture-diagram.png">]()
 
 **Components**
 - **Amazon S3** – Hosts the static frontend UI and the sample data files
 - **Amazon API Gateway (REST API)** – Exposes a backend endpoint for scanning requests
 - **AWS Lambda** – Implements file discovery logic across S3 prefixes
+
+Want to understand more about Architecture??
+   👉 [Architecture](architecture.md)
 
 ---
 
@@ -34,22 +37,20 @@ The solution is built entirely using managed AWS services and is free-tier frien
 ### ✅ Success: File Found
 User enters a valid file name that exists in S3.
 
-![File Found](docs/screenshots/success_file_found.png)
-
+[<img src="docs/screenshots/success_file_found.png">]()
 ---
 
 ### ❌ Negative: File Not Found
 User enters a file name that does not exist.
 
-![File Not Found](docs/screenshots/negative_file_not_found.png)
+[<img src="docs/screenshots/negative_file_not_found.png">]()
 
 ---
 
 ### ⚠️ Invalid Input
 User enters a file name without a valid extension or with an unsupported format.
 
-![Invalid File Name](docs/screenshots/invalid_file_name.png)
-
+[<img src="docs/screenshots/invalid_file_name.png">]()
 ---
 
 ## Deployment
@@ -79,6 +80,9 @@ Detailed documentation is available in the `docs/` folder:
 - Support partial file-name search
 - Display list of matched files
 - Add authentication via Amazon Cognito
+
+Want to understand more about Future plans?? 
+   👉 [Future Plans](decisions-and-future.md)
 
 ---
 
