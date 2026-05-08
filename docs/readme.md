@@ -11,7 +11,6 @@ The solution is built entirely using managed AWS services and is free-tier frien
 ---
 
 ## Architecture
-[<img src="docs/images/architecture-diagram.png">]()
 ![architecture](images/architecture-diagram.png)
 
 **Components**
@@ -38,20 +37,20 @@ Want to understand more about Architecture??
 ### ✅ Success: File Found
 User enters a valid file name that exists in S3.
 
-[<img src="docs/images/success_file_found.png">]()
+![success-scenario](images/success_file_found.png)
 ---
 
 ### ❌ Negative: File Not Found
 User enters a file name that does not exist.
 
-[<img src="docs/images/negative_file_not_found.png">]()
+![negative-scenario](images/negative_file_not_found.png)
 
 ---
 
 ### ⚠️ Invalid Input
 User enters a file name without a valid extension or with an unsupported format.
 
-[<img src="docs/images/invalid_file_name.png">]()
+![invalid-scenario](images/invalid_file_name.png)
 ---
 
 ## Deployment
