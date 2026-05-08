@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>S3 Scan POC</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; }
+    input { width: 420px; padding: 8px; }
+    button { padding: 8px 16px; margin-top: 10px; }
+    pre { background:#f4f4f4; padding:12px; border:1px solid #ccc; margin-top:20px; }
+  </style>
+</head>
+<body>
+  <h2>S3 Scan POC (REST API)</h2>
+
+  <label>Enter file name (example: employee_data.csv):</label><br><br>
+  <input id="fileName" type="text" placeholder="employee_data.csv" />
+  <br><br>
+
+  <button onclick="startScan()">Start Scan</button>
+  <pre id="result"></pre>
+
+  <script>
+    async function startScan() {
+      const fileName = document.getElementById("fileName").value.trim();
+      const result = document.getElementById("result");
+      if (!fileName) { result.innerText = "Please enter a file name."; return; }
+
+      result.innerText = "Calling scan API...";
+
+      try {
+        // ✅ REST API format: ...amazonaws.com/prod/scan
+        const url = window.__SCAN_API_URL__ || "REPLACE_ME_AFTER_TERRAFORM";
+        const response = await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ file_name: fileName })
+        });
+
+        const text = await response.text();
+        result.innerText = text;
+      } catch (err) {
+        result.innerText = "Error calling API: " + err;
+      }
+    }
+  </script>
+</body>
+</html>
