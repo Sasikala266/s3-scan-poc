@@ -11,4 +11,11 @@ terraform {
       version = "~> 2.0"
     }
   }
+
+  backend "s3" {
+    bucket = "terraform-tfstate-bucket-aiuscase"
+    key    = "sasi-s3-scan-poc/terraform.tfstate"
+    region = "us-east-1"
+  }
+
 }
