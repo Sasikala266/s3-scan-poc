@@ -12,6 +12,7 @@ The solution is built entirely using managed AWS services and is free-tier frien
 
 ## Architecture
 [<img src="docs/images/architecture-diagram.png">]()
+![architecture](images/architecture-diagram.png)
 
 **Components**
 - **Amazon S3** – Hosts the static frontend UI and the sample data files
