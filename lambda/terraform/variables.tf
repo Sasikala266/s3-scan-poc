@@ -10,5 +10,5 @@ variable "project_name" {
 
 variable "bucket_name" {
   type    = string
-  default = "s3-scan-sasi-learning" # change if needed to unique
+  default = "sasi-s3-scan-poc" # change if needed to unique
 }
