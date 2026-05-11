@@ -186,7 +186,7 @@ Possible frontend improvements:
 ---
 
 ## Migration to Production (High‑Level Steps)
-1. Replace public S3 with CloudFront + OAC
+1. Replace public S3 with CloudFront + OAC or Leverage AWS Lex capabilities for UI
 2. Enable authentication
 3. Add structured monitoring
 4. Restrict IAM policies further
