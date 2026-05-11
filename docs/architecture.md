@@ -9,7 +9,7 @@ The solution intentionally hides storage details from the user and pushes all di
 
 ## High‑Level Architecture
 
-![architecture](images/architecture-diagram.png)
+![architecture](images/architecture.png)
 
 ### Components Involved
 - **Amazon S3 (Static Website Hosting)** – Hosts the frontend UI

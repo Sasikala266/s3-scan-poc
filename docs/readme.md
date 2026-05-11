@@ -11,7 +11,7 @@ The solution is built entirely using managed AWS services.
 ---
 
 ## Architecture
-![architecture](images/architecture-diagram.png)
+![architecture](images/architecture.png)
 
 **Components**
 - **Amazon S3** – Hosts the static frontend UI and the sample data files
