@@ -53,6 +53,30 @@ User enters a file name without a valid extension or with an unsupported format.
 ![invalid-scenario](images/invalid_file_name.png)
 ---
 
+### ✅ Wildcard Search – Multiple Matches Found
+
+User searches using wildcard pattern to find multiple files.
+
+![wildcard-success](images/wildcard-success.png)
+
+---
+
+### ❌ Wildcard Search – No Matches Found
+
+User enters a wildcard pattern that does not match any files.
+
+![wildcard-negative](images/wildcard-negative.png)
+
+---
+
+### ⚠️ Invalid Wildcard Pattern
+
+User enters a wildcard pattern without valid extension or incorrect format.
+
+![wildcard-invalid](images/wildcard-invalid.png)
+
+---
+
 ## Deployment
 All infrastructure is deployed using **Terraform**.
 
@@ -76,10 +100,13 @@ Detailed documentation is available in the `docs/` folder:
 ---
 
 ## Future Enhancements
-- Replace public S3 access with CloudFront + OAC
-- Support partial file-name search
-- Display list of matched files
-- Add authentication via Amazon Cognito
+• Add authentication via Amazon Cognito
+• Advanced search (partial match, fuzzy search)  
+• Metadata-based filtering (date, owner, type)  
+• UI enhancements with search suggestions  
+• File preview and download links  
+• Performance optimization for large datasets  
+• Integration with analytics pipelines 
 
 Want to understand more about Future plans?? 
    👉 [Future Plans](decisions-and-future.md)
