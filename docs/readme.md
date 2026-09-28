@@ -104,23 +104,25 @@ Detailed documentation is available in the `docs/` folder:
 
 The current architecture is ideal for POC and departmental use cases. When we move into multi-million object environments, we need additional indexing mechanisms such as DynamoDB, OpenSearch, or dedicated metadata catalogs to maintain low latency
 
-Total Objects	Typical Search Latency
-10K	< 1 second
-100K	1-2 seconds
-500K	2-5 seconds
-1 Million	5-10 seconds
-5 Million+	10+ seconds depending on implementation
+| Total Objects | Typical Search Latency |
+| --- | --- |
+| 10K | < 1 second |
+| 100K | 1-2 seconds |
+| 500K | 2-5 seconds |
+| 1 Million | 5-10 seconds |
+| 5 Million+ | 10+ seconds depending on implementation |
 
 ---
 
 ## Monthly Cost Overview
 
-Searches / Month	Estimated Monthly Cost
-1,000	Close to $0
-10,000	Less than $1
-100,000	Few Dollars
-500,000	Single Digit Dollars
-1 Million	Low Double-Digit Dollars
+| Searches / Month | Estimated Monthly Cost |
+| --- | --- |
+| 1,000 | Close to $0 |
+| 10,000 | Less than $1 |
+| 100,000 | Few Dollars |
+| 500,000 | Single Digit Dollars |
+| 1 Million | Low Double-Digit Dollars |
 
 ---
 
