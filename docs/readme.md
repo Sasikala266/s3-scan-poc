@@ -1,4 +1,4 @@
-# S3 File Scan POC (Serverless)
+# Path Finder (Serverless)
 
 ## Overview
 This project demonstrates a fully serverless AWS solution to dynamically locate files in Amazon S3 using a simple web-based UI.
