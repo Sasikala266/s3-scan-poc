@@ -37,27 +37,27 @@ Want to understand more about Architecture??
 ### ✅ Success: File Found
 User enters a valid file name that exists in S3.
 
-![success-scenario](images/success_file_found.png)
+![success-scenario](images/success-file-found.png)
 ---
 
 ### ❌ Negative: File Not Found
 User enters a file name that does not exist.
 
-![negative-scenario](images/negative_file_not_found.png)
+![negative-scenario](images/negative-file-not-found.png)
 
 ---
 
 ### ⚠️ Invalid Input
 User enters a file name without a valid extension or with an unsupported format.
 
-![invalid-scenario](images/invalid_file_name.png)
+![invalid-scenario](images/invalid-file-name.png)
 ---
 
 ### ✅ Wildcard Search – Multiple Matches Found
 
 User searches using wildcard pattern to find multiple files.
 
-![wildcard-success](images/wildcard-success.png)
+![wildcard-success](images/wildcard-success-search.png)
 
 ---
 
@@ -65,7 +65,7 @@ User searches using wildcard pattern to find multiple files.
 
 User enters a wildcard pattern that does not match any files.
 
-![wildcard-negative](images/wildcard-negative.png)
+![wildcard-negative](images/wildcard-negative-search.png)
 
 ---
 
@@ -73,7 +73,7 @@ User enters a wildcard pattern that does not match any files.
 
 User enters a wildcard pattern without valid extension or incorrect format.
 
-![wildcard-invalid](images/wildcard-invalid.png)
+![wildcard-invalid](images/wildcard-invalid-search.png)
 
 ---
 
@@ -127,13 +127,13 @@ The current architecture is ideal for POC and departmental use cases. When we mo
 ---
 
 ## Future Enhancements
-• Add authentication via Amazon Cognito
-• Advanced search (partial match, fuzzy search) 
-• Metadata-based filtering (date, owner, type)  
-• UI enhancements with search suggestions  
-• File preview and download links  
-• Performance optimization for large datasets  
-• Integration with analytics pipelines 
+- Add authentication via Amazon Cognito
+- Advanced search (partial match, fuzzy search) 
+- Metadata-based filtering (date, owner, type)  
+- UI enhancements with search suggestions  
+- File preview and download links  
+- Performance optimization for large datasets  
+- Integration with analytics pipelines 
 
 Want to understand more about Future plans?? 
    👉 [Future Plans](decisions-and-future.md)
