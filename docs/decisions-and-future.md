@@ -4,140 +4,9 @@ This document captures the key technical and architectural decisions made while 
 
 The intention is to explain **why specific choices were made** and how the solution can evolve into a production‑ready implementation.
 
----
 
-## Key Design Decisions
+### Authentication & Authorization
 
-### 1. Serverless Architecture
-**Decision:**  
-Use AWS managed serverless services (S3, API Gateway, Lambda).
-
-**Rationale:**
-- No infrastructure management or scaling concerns
-- Pay‑per‑use cost model
-- Fast iteration and deployment
-- Ideal for POCs and lightweight workloads
-
-This approach keeps operational overhead minimal and aligns with modern cloud-native patterns.
-
----
-
-### 2. Static Frontend Hosted on Amazon S3
-**Decision:**  
-Host the UI as a static website in Amazon S3.
-
-**Rationale:**
-- Simple and cost‑effective
-- No backend maintenance
-- Easy integration with API Gateway
-- Works well for lightweight interactive UIs
-
-The frontend is intentionally kept **dumb** — it performs no logic beyond sending user input to the backend.
-
----
-
-### 3. REST API Gateway (Not HTTP API)
-**Decision:**  
-Use **Amazon API Gateway REST API** instead of HTTP API.
-
-**Rationale:**
-- Explicit stage management (`/prod`)
-- Clear resource‑based routing (`/scan`)
-- Better visibility for learning and debugging
-- Familiar enterprise pattern
-
-Although HTTP APIs are cheaper and simpler, REST API was chosen to make routing, stages, and CORS behavior more explicit for demonstration and learning purposes.
-
----
-
-### 4. Backend‑Driven File Discovery
-**Decision:**  
-Accept **only file name input** from the UI and handle all discovery logic in Lambda.
-
-**Rationale:**
-- UI should not know storage layout
-- Prevents exposing internal bucket structure
-- Centralizes validation and search logic
-- Enables future backend enhancements without UI changes
-
-This improves security, maintainability, and extensibility.
-
----
-
-### 5. Prefix‑Based S3 Organization
-**Decision:**  
-Organize files in S3 using logical prefixes based on file type (`csv/`, `json/`, `xml/`, `html/`).
-
-**Rationale:**
-- Simple and scalable search strategy
-- Reduces unnecessary lookups
-- Easy to extend with new file types
-- Clear separation of data categories
-
----
-
-### 6. Input Validation in Lambda
-**Decision:**  
-Perform strict validation on `file_name` inside Lambda.
-
-**Validations include:**
-- Missing file name
-- Missing extension
-- Unsupported extension
-- File not found
-
-**Rationale:**
-- Improves user experience
-- Prevents unnecessary S3 calls
-- Makes error handling predictable
-- Keeps the UI simple
-
----
-
-### 7. Dual Invocation Support (API + Direct Test)
-**Decision:**  
-Support both:
-- API Gateway invocations
-- Direct Lambda “Test Event” execution
-
-**Rationale:**
-- Simplifies development and debugging
-- Enables local validation without frontend
-- Improves maintainability for future testing frameworks
-
----
-
-## Security Considerations
-
-### Current State (POC)
-- Public S3 access enabled to serve static UI
-- Lambda uses minimal IAM permissions
-- No credentials exposed to frontend
-
-### Known Limitation
-Public S3 access was enabled manually due to enterprise‑level S3 Block Public Access guardrails preventing Terraform‑based public policies.
-
-This approach is acceptable **only for POC/demo purposes**.
-
----
-
-## Future Enhancements
-
-### 1. Replace Public S3 with CloudFront + OAC
-**Description:**
-- S3 remains private
-- CloudFront serves UI
-- Origin Access Control (OAC) enforces secure access
-
-**Benefits:**
-- Aligns with AWS security best practices
-- Removes public S3 policies
-- Improves performance and caching
-- Terraform‑friendly in enterprise accounts
-
----
-
-### 2. Authentication & Authorization
 **Options:**
 - Amazon Cognito
 - IAM authentication
@@ -150,59 +19,71 @@ This approach is acceptable **only for POC/demo purposes**.
 
 ---
 
-### 3. Enhanced Search Capability
-Potential enhancements:
-- Partial or fuzzy filename matching
-- Case‑insensitive search
-- Return multiple matches instead of single file
-- Search across configurable buckets
+### Advanced Search (Partial Match, Fuzzy Search)
+The current implementation supports exact and wildcard-based search patterns. In future iterations, this can be enhanced to support partial and fuzzy matching, allowing users to search even when the file name is not fully known or contains minor variations.
+This capability would enable:
+
+Case-insensitive and substring matching (e.g., *employee*)
+Flexible search experiences similar to search engines
+Improved usability for large datasets with inconsistent naming conventions
+
+This enhancement will significantly reduce dependency on strict naming patterns and improve overall user experience.
 
 ---
 
-### 4. Metadata & File Insights
-Lambda can be extended to:
-- Return file size
-- Display last modified timestamp
-- Validate file schema (CSV/JSON)
-- Perform content scanning or rule checks
+### Metadata-Based Filtering (Date, Owner, Type)
+Currently, the search is based solely on file names and extensions. This can be extended by incorporating metadata-driven filtering, enabling users to search files based on additional attributes such as:
+
+Upload date or date range
+File type (CSV, JSON, XML, etc.)
+Owner or source system
+File size or category
+
+By leveraging metadata, the system can provide more contextual and refined search results, making it suitable for enterprise data lake environments where structured search is critical.
+
+--- 
+
+### UI Enhancements with Search Suggestions
+The current UI accepts direct user input for file search. This can be improved by introducing interactive search assistance features, such as:
+
+Auto-suggestions based on previously searched patterns
+Dropdown recommendations for file names and extensions
+Real-time validation feedback while typing
+Smart hints for wildcard usage
+
+These enhancements will make the interface more intuitive, reduce invalid inputs, and improve the overall usability of the solution.
 
 ---
 
-### 5. UI Enhancements
-Possible frontend improvements:
-- Dropdown of recently discovered files
-- Auto‑suggest based on prefix
-- Better formatted response display
-- Loading indicators and tooltips
+### File Preview and Download Links
+At present, the system returns file paths as search results. This can be extended to provide direct file access capabilities, such as:
+
+Previewing file contents (for supported formats like JSON, CSV, HTML)
+Secure download links using pre-signed URLs
+Direct integration with browsers or internal tools
+
+This feature will transform the solution from a file discovery tool into a file access platform, enabling end-to-end interaction with S3 data.
 
 ---
 
-### 6. Scalability & Observability
-- Add CloudWatch structured logging
-- Track search latency metrics
-- Integrate AWS X‑Ray
-- Add alarms for error rate
+### Performance Optimization for Large Datasets
+The current implementation uses S3 object listing and filtering, which is suitable for small to medium-scale datasets. For larger datasets (millions of files), performance can be enhanced by adopting optimized strategies such as:
 
----
+Maintaining an indexed metadata layer
+Reducing scan scope through intelligent partitioning
+Caching frequently accessed results
+Parallelizing search operations
 
-## Migration to Production (High‑Level Steps)
-1. Replace public S3 with CloudFront + OAC or Leverage AWS Lex capabilities for UI
-2. Enable authentication
-3. Add structured monitoring
-4. Restrict IAM policies further
-5. Implement CI/CD promotion controls
-6. Add automated testing
+These improvements will ensure consistent response times and scalability as the system grows.
 
----
+--- 
 
-## Conclusion
+### Integration with Analytics Pipelines
+The solution can be extended to integrate with downstream data and analytics workflows, enabling:
 
-This POC intentionally prioritizes **clarity, learning, and speed** over full production hardening.
+Triggering ETL or processing pipelines after file discovery
+Feeding search results into analytics tools (Athena, Glue, BI dashboards)
+Automating data validation and transformation workflows
+Supporting data-driven decision-making processes
 
-The current design demonstrates:
-- Clean separation of concerns
-- Strong serverless fundamentals
-- Secure backend‑driven logic
-- Clear upgrade path to enterprise‑grade architecture
-
-With minimal additional effort, the solution can confidently evolve into a production‑ready system.
+This evolution will position the solution as a foundational component within a larger data ecosystem, rather than just a standalone search utility.
