@@ -128,7 +128,7 @@ The current architecture is ideal for POC and departmental use cases. When we mo
 
 ## Future Enhancements
 • Add authentication via Amazon Cognito
-• Advanced search (partial match, fuzzy search)  
+• Advanced search (partial match, fuzzy search) 
 • Metadata-based filtering (date, owner, type)  
 • UI enhancements with search suggestions  
 • File preview and download links  
