@@ -14,7 +14,7 @@ terraform {
 
   backend "s3" {
     bucket = "terraform-tfstate-bucket-aiuscase"
-    key    = "sasi-s3-scan-poc/terraform.tfstate"
+    key    = "sasi-s3-scan-poc/terraform.tfstate"  # change the bucket name with your S3 bucket name
     region = "us-east-1"
   }
 
